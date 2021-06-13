@@ -1,6 +1,7 @@
 package project;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,8 +11,12 @@ public class vending {
     item item;
     public static String itemName;
     public static double itemPrice;
-    public static int quantity;
+    public static int quantity,n;
     public static double totalPrice;
+    public static double change;
+    public static double machineAmount;
+    public static double coutmerAmount;
+    
 
     private static void dairy() {
         System.out.println("\nIndex  Items            Price\n");
@@ -68,7 +73,23 @@ public class vending {
         System.out.println("\n 5.        soft drinks 40 Rs\n");
         
     }
-    public static void main(String[] args) {
+    private static void change() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("how much amount does coustmer have: " );
+            coutmerAmount = sc.nextInt();
+            if (machineAmount == coutmerAmount) {
+                System.out.println("Bill paid!\n");
+                System.out.println("Thankyou visit again :)");
+            } else {
+                change = coutmerAmount - machineAmount;
+                System.out.println("here is your change:" + change);
+                System.out.println("Bill paid!\n");
+                System.out.println("Thankyou visit again :)");
+            }
+        
+    }
+
+    public static <itemName,itemPrice> void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         int ch;
@@ -84,6 +105,7 @@ public class vending {
             ch = sc.nextInt();
             switch (ch) {
                 case 1:dairy();
+
                 System.out.print( "Enter the name of the item: " );
                 itemName = sc.next();
 
@@ -110,25 +132,28 @@ public class vending {
              System.out.println("do you want to add more items? (y/n):  ");
              keepShopping = sc.next();
         
-        }while(keepShopping.equalsIgnoreCase("y");
-        
+        }while(keepShopping.equalsIgnoreCase("y"));
+
+
         System.out.println("final Shopping Cart totals");
+        System.out.println("ItemName" +"\t\t" + "ItemPrice" +"\t" + "Quantity"+ "\t" + "total");
+        
 
         for(item itemnew : cart )
         {
-            double total , totalPrice ;
+            double total ;
             total = itemPrice*quantity;
-            totalPrice = total;
 
-            System.out.println( itemName + "\t\t" + itemPrice + "\t\t" + total );
-            System.out.println("\n total amount to be paid: " + totalPrice );
-
-
+            System.out.println( itemName + "\t\t\t" + itemPrice + "\t\t" +quantity + "\t\t" + total );
+            machineAmount = machineAmount + total;
+            System.out.println("\n total amount to be paid: " + machineAmount );
+            change();
         }
-       
+
 
         System.out.println();
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+        
 
         
         
