@@ -11,7 +11,7 @@ public class vending {
     item item;
     public static String itemName;
     public static double itemPrice;
-    public static int quantity,n;
+    public static int quantity;
     public static double totalPrice;
     public static double change;
     public static double machineAmount;
