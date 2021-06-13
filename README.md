@@ -2,7 +2,7 @@
 
 This is a basic java project - vending machine
 
-Here is all about my project:
+# Here is all about my project:
 
 1. Firstly according to customer choice he or she can select cotegories of machine eg. dairy, snacks, soaps etc.
 
