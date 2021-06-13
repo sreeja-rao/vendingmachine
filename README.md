@@ -1,6 +1,6 @@
-# vendingmachine
+# Vending Machine
 
-This is a basic java project - vending machine
+This is a basic java project - Vending Machine
 
 # Here is all about my project:
 
