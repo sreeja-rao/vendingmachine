@@ -1,14 +1,12 @@
 package project;
 
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class vending {
 
-    item item;
     public static String itemName;
     public static double itemPrice;
     public static int quantity;
@@ -20,7 +18,7 @@ public class vending {
 
     private static void dairy() {
         System.out.println("\nIndex  Items            Price\n");
-        System.out.println("\n_____  _________        ___________\n");
+        System.out.println("\n____   ______           _________\n");
         System.out.println("\n 1.    milk             55 rs/lt\n");
         System.out.println("\n 2.    curd             99 rs/kg\n");
         System.out.println("\n 3.    lassi            65 rs/lt\n");
@@ -33,8 +31,8 @@ public class vending {
         
     }
     private static void soaps() {
-        System.out.println("\n Index   Items    Price\n");
-        System.out.println("\n_______  ______   _______\n");
+        System.out.println("\n Index    Items    Price\n");
+        System.out.println("\n _____    _____    _______\n");
         System.out.println("\n 1.       dove     40 Rs\n");
         System.out.println("\n 2.       lux      25 Rs\n");
         System.out.println("\n 3.       cintal   34 Rs\n");
@@ -46,7 +44,7 @@ public class vending {
     }
     private static void snacks_hot() {
         System.out.println("\n Index    Items          Price \n");
-        System.out.println("\n ______   _______        ________\n");
+        System.out.println("\n _____    ______         ________\n");
         System.out.println("\n 1.       chips          150 Rs/kg\n");
         System.out.println("\n 2.       bhujiya        200 Rs/kg\n");
         System.out.println("\n 3.       mixtuer        200 Rs/kg\n");
@@ -56,7 +54,7 @@ public class vending {
     }
     private static void snacks_sweet() {
         System.out.println("\n Index    Items       Price \n");
-        System.out.println("\n ______   _______     _______\n");
+        System.out.println("\n _____    _______     _______\n");
         System.out.println("\n 1.       biscuits    50 Rs\n");
         System.out.println("\n 2.       cookies     80 Rs\n");
         System.out.println("\n 3.       chocolates  150 Rs\n");
@@ -65,7 +63,7 @@ public class vending {
     }
     private static void drinks() {
         System.out.println("\n Index     Items       price\n");
-        System.out.println("\n ______    ______      ________\n");
+        System.out.println("\n _____     _____       _________\n");
         System.out.println("\n 1.        mango       70 Rs/lt\n");
         System.out.println("\n 2.        orange      60 Rs/lt\n");
         System.out.println("\n 3.        milk shake  70 Rs/lt\n");
@@ -75,29 +73,29 @@ public class vending {
     }
     private static void change() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("how much amount does coustmer have: " );
+        System.out.println("\n how much amount does coustmer have: " );
             coutmerAmount = sc.nextInt();
             if (machineAmount == coutmerAmount) {
-                System.out.println("Bill paid!\n");
-                System.out.println("Thankyou visit again :)");
+                System.out.println(" \nBill paid!");
+                System.out.println("Thankyou visit again :)\n");
             } else {
                 change = coutmerAmount - machineAmount;
-                System.out.println("here is your change:" + change);
+                System.out.println("\n here is your change: " + change);
                 System.out.println("Bill paid!\n");
-                System.out.println("Thankyou visit again :)");
+                System.out.println("Thankyou visit again :)\n");
             }
+            sc.close();
         
     }
 
-    public static <itemName,itemPrice> void main(String[] args) {
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         int ch;
         String keepShopping ="y";
 
-        List<item> cart = new ArrayList<item>();
-        
-
+      Map<String, Double> cartMap = new HashMap<>();
+      
         do{
             System.out.println("\nchoose in which categorie you want to shop\n");
             System.out.println("\n 1.dairy \n 2.soaps \n 3.snacks hot \n 4.snacks sweet\n 5.drinks\n 6.exit\n");
@@ -105,27 +103,25 @@ public class vending {
             ch = sc.nextInt();
             switch (ch) {
                 case 1:dairy();
-
-                System.out.print( "Enter the name of the item: " );
-                itemName = sc.next();
-
-                System.out.print( "Enter the unit price: " );
-                itemPrice = sc.nextDouble();
-
-                System.out.print( "Enter the quantity: " );
-                quantity = sc.nextInt();
-                sc.nextLine();
-
-                cart.add(new item(itemName, itemPrice, quantity ) );
+                cartFunc(sc, cartMap);
                 break;
+
                 case 2:soaps();
+                cartFunc(sc, cartMap);
                 break;
+
                 case 3:snacks_hot();
+                cartFunc(sc, cartMap);
                 break;
+
                 case 4:snacks_sweet();
+                cartFunc(sc, cartMap);
                 break;
+
                 case 5:drinks();
+                cartFunc(sc, cartMap);
                 break;
+
                 case 6:System.out.println("BYE!");
                 break;
              }
@@ -135,28 +131,39 @@ public class vending {
         }while(keepShopping.equalsIgnoreCase("y"));
 
 
-        System.out.println("final Shopping Cart totals");
-        System.out.println("ItemName" +"\t\t" + "ItemPrice" +"\t" + "Quantity"+ "\t" + "total");
-        
+        System.out.println("\nfinal Shopping Cart totals");
+        double total=0 ;
 
-        for(item itemnew : cart )
-        {
-            double total ;
-            total = itemPrice*quantity;
+            for (Map.Entry<String,Double> entry : cartMap.entrySet()) 
+            {
+                System.out.println("Item :  " + entry.getKey() + " | Total price : " + entry.getValue());
+                total = total + entry.getValue();
+            }
 
-            System.out.println( itemName + "\t\t\t" + itemPrice + "\t\t" +quantity + "\t\t" + total );
-            machineAmount = machineAmount + total;
-            System.out.println("\n total amount to be paid: " + machineAmount );
+            machineAmount = total;
+            
+            System.out.println("\n total amount to be paid: \n " + machineAmount);
+           
             change();
-        }
-
-
-        System.out.println();
-        NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
-        
-
         
         
         sc.close();
     }
+    
+    static void cartFunc(Scanner sc, Map<String, Double> cartMap) 
+    {
+        System.out.print( "Enter the name of the item: " );
+        itemName = sc.next();
+
+        System.out.print( "Enter the unit price: " );
+        itemPrice = sc.nextDouble();
+
+        System.out.print( "Enter the quantity: " );
+        quantity = sc.nextInt();
+        sc.nextLine();
+
+        cartMap.put(itemName, itemPrice*quantity);
+
+    }
 }
+
